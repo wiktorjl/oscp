@@ -1,0 +1,45 @@
+WHAT:
+
+I am a security researcher working on a new course material for the training institute I work at. The subject is automation in red teaming. I need to write a bash script that runs on Kali linux and runs all tools related to the web application security scanning stage.
+
+
+THE METHOD:
+
+This script will execute a number of tasks and will keep the user informed by emmiting status updates in the following format:
+
+X. UTF8 ICON [Level 1] Level 2 (Level3) {Level 4}
+
+Level 1 - (Max 10 characters) Top level information like the name of the step or phase being executed
+Level 2 - (Max 10 characters) More granular name of the step that was just executed. If this is a short task, just output a message with the result. If this is a larger task, first output one line saying you are starting to work on it, and then the second one as usual - result
+Level 3 - Specific information relevant to Level 2 step - ID, name, UUID, and so on.
+Level 4 - to be only used in rare situation where more nuance needs to be conveyed
+
+At each line, appropriate icon should be used if available.
+
+THE ALGORITHM:
+This script automates pentesting stage of web application scanning.
+Assume the execution environment is Kali Linux and seclists is available along with rockyou.txt
+At each step use the above output specification.
+Each step must have its result checked.
+Each step must be logged
+
+STEPS:
+
+Read IP address from argument list and if it is missing, display usage and exit
+
+Check if IP is up and exit if it is no
+
+Check if there is an HTTP server listening on port provided via command line (default to port 80 if not specified)
+
+Execute whatwep app with all possible detection options
+
+If this appears to be WordPress, execute wpscan
+
+Run nmap detection scripts
+
+Scan / for directories
+
+Scan / for common files .txt .php and dotfiles
+
+Scan for vhosts (need hostname to be provided in commandlines)
+
