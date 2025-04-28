@@ -15,6 +15,15 @@ Options:
     -a, --interactive  Enable interactive mode (pause between steps)
     -d, --debug        Enable debug output
     --help            Show this help message
+    --all             Run all scans (default)
+    --initial-recon   Run initial reconnaissance
+    --service-discovery Run service discovery
+    --web-fingerprinting Run web fingerprinting
+    --wordpress-scan    Run WordPress scan
+    --vulnerability-scan Run vulnerability scan
+    --directory-fuzzing Run directory fuzzing
+    --file-fuzzing      Run file fuzzing
+    --vhost-fuzzing     Run virtual host fuzzing
 
 Advanced Options:
     --custom-wordlist  Specify custom wordlist for directory bruteforcing
@@ -32,6 +41,7 @@ Output Options:
 
 Example:
     $(basename "$0") -t 192.168.1.100 -p 8080 -h example.com -i 2 -a
+    $(basename "$0") -t 192.168.1.100 --initial-recon --service-discovery
 EOF
 }
 
@@ -118,6 +128,50 @@ parse_params() {
                 ;;
             -d|--debug)
                 DEBUG=true
+                shift
+                ;;
+            --all)
+                RUN_ALL=true
+                shift
+                ;;
+            --initial-recon)
+                RUN_ALL=false
+                RUN_INITIAL_RECON=true
+                shift
+                ;;
+            --service-discovery)
+                RUN_ALL=false
+                RUN_SERVICE_DISCOVERY=true
+                shift
+                ;;
+            --web-fingerprinting)
+                RUN_ALL=false
+                RUN_WEB_FINGERPRINTING=true
+                shift
+                ;;
+            --wordpress-scan)
+                RUN_ALL=false
+                RUN_WORDPRESS_SCAN=true
+                shift
+                ;;
+            --vulnerability-scan)
+                RUN_ALL=false
+                RUN_VULNERABILITY_SCAN=true
+                shift
+                ;;
+            --directory-fuzzing)
+                RUN_ALL=false
+                RUN_DIRECTORY_FUZZING=true
+                shift
+                ;;
+            --file-fuzzing)
+                RUN_ALL=false
+                RUN_FILE_FUZZING=true
+                shift
+                ;;
+            --vhost-fuzzing)
+                RUN_ALL=false
+                RUN_VHOST_FUZZING=true
                 shift
                 ;;
             --help)
@@ -209,7 +263,7 @@ prompt_continue() {
 # Function: Cleanup resources
 cleanup() {
     log "INFO" "CLEANUP" "START" "Performing cleanup"
-    [[ -d "${TEMP_DIR:-}" ]] && rm -rf "${TEMP_DIR}"
+    # [[ -d "${TEMP_DIR:-}" ]] && rm -rf "${TEMP_DIR}"
     jobs -p | xargs -r kill -9 2>/dev/null || true
     log "INFO" "CLEANUP" "COMPLETE" "Cleanup finished"
 }

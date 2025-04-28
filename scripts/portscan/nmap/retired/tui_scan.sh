@@ -32,6 +32,7 @@ init_globals() {
     TARGET_IP=${TARGET_IP:-""}
     HOSTNAME=${HOSTNAME:-""}
     WORDPRESS_DETECTED=${WORDPRESS_DETECTED:-false}
+    RUN_ALL=true  # Default to running all scans
 }
 
 # Main execution flow
@@ -58,14 +59,25 @@ main() {
     trap 'log "ERROR" "SIGNAL" "INTERRUPT" "Scan interrupted by user"; cleanup; exit 1' INT
 
     # Execute scanning steps
-    run_initial_recon
-    run_service_discovery
-    run_web_fingerprinting
-    run_wordpress_scan
-    run_vulnerability_scan
-    run_directory_fuzzing
-    run_file_fuzzing
-    run_vhost_fuzzing
+    if [[ "$RUN_ALL" == true ]]; then
+        run_initial_recon
+        run_service_discovery
+        run_web_fingerprinting
+        run_wordpress_scan
+        run_vulnerability_scan
+        run_directory_fuzzing
+        run_file_fuzzing
+        run_vhost_fuzzing
+    else
+        [[ "${RUN_INITIAL_RECON:-false}" == true ]] && run_initial_recon
+        [[ "${RUN_SERVICE_DISCOVERY:-false}" == true ]] && run_service_discovery
+        [[ "${RUN_WEB_FINGERPRINTING:-false}" == true ]] && run_web_fingerprinting
+        [[ "${RUN_WORDPRESS_SCAN:-false}" == true ]] && run_wordpress_scan
+        [[ "${RUN_VULNERABILITY_SCAN:-false}" == true ]] && run_vulnerability_scan
+        [[ "${RUN_DIRECTORY_FUZZING:-false}" == true ]] && run_directory_fuzzing
+        [[ "${RUN_FILE_FUZZING:-false}" == true ]] && run_file_fuzzing
+        [[ "${RUN_VHOST_FUZZING:-false}" == true ]] && run_vhost_fuzzing
+    fi
 
     # Generate final report
     generate_report
