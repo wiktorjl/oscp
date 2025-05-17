@@ -50,3 +50,16 @@ Accept-Encoding: gzip, deflate, br
 Connection: keep-alive
 
 email=ddd%40ddd.com&message=http://alert.htb/visualizer.php?link_share=68104ed741eed8.10388805.md
+
+
+
+
+
+new users discovered:
+dave
+albert
+
+
+/var/www/statistics.alert.htb/.htpasswd
+/etc/apache2/sites-available/000-default.conf
+albert:$apr1$bMoRBJOg$igG8WBtQ1xYDTQdLjSWZQ/

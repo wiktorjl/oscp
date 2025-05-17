@@ -1,0 +1,35 @@
+# Nmap 7.93 scan initiated Wed May  7 11:48:23 2025 as: nmap -v -sS -sC -sV -A -T5 -p 1-65535 -oN scan.txt alert.htb
+Warning: 10.10.11.44 giving up on port because retransmission cap hit (2).
+Nmap scan report for alert.htb (10.10.11.44)
+Host is up (0.085s latency).
+rDNS record for 10.10.11.44: alert
+Not shown: 65532 closed tcp ports (reset)
+PORT      STATE    SERVICE VERSION
+22/tcp    open     ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.11 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 7e462c466ee6d1eb2d9d3425e63614a7 (RSA)
+|   256 457b2095ec17c5b4d8865081e08ce8b8 (ECDSA)
+|_  256 cb92ad6bfcc88e5e9f8ca2691b6dd0f7 (ED25519)
+80/tcp    open     http    Apache httpd 2.4.41 ((Ubuntu))
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-title: Alert - Markdown Viewer
+|_Requested resource was index.php?page=alert
+12227/tcp filtered unknown
+Aggressive OS guesses: Linux 5.0 (96%), Linux 4.15 - 5.6 (95%), Linux 5.3 - 5.4 (95%), Linux 2.6.32 (95%), Linux 5.0 - 5.3 (95%), Linux 3.1 (95%), Linux 3.2 (95%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), ASUS RT-N56U WAP (Linux 3.4) (93%), Linux 3.16 (93%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 29.824 days (since Mon Apr  7 16:06:21 2025)
+Network Distance: 2 hops
+TCP Sequence Prediction: Difficulty=259 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 143/tcp)
+HOP RTT      ADDRESS
+1   91.49 ms 10.10.14.1
+2   91.56 ms alert (10.10.11.44)
+
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed May  7 11:52:53 2025 -- 1 IP address (1 host up) scanned in 270.17 seconds
